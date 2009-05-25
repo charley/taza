@@ -1,9 +1,16 @@
+=== 0.8.7
+
+* Added script/console Utility
+* Integration with user_choices
+* Attach to open IE instance
+
 === 0.8.6
 
 * Added feature to keep browser open after tests
 * Added access to multiple levels in Fixtures
 * Added feature to return a Hash in Fixtures 
 * lib/flows is no longer generated
+* Page module filters for elements inside page modules
 
 === 0.8.5
 
