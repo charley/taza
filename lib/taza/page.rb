@@ -76,7 +76,7 @@ module Taza
       yield(block)
       @module = nil
     end
-    
+
     def self.page_module_filter(method_name, page_module_name, *elements)
       elements = [page_module_name] if elements.empty?
       elements.each do |element|

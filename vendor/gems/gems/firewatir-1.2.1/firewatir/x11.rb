@@ -10,8 +10,8 @@ module X11
 
 	# Load the X11 library
 	extend DL::Importable
-	dlload "libX11.so" 
-	
+	dlload "libX11.so"
+
 	# Import necessary functions from X11 here.
 	import("XOpenDisplay", "unsigned long", ["char*"])
 	import("XScreenCount", "int", ["unsigned long"])

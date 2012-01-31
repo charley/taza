@@ -1,7 +1,7 @@
 class TestUnitGenerator < RubiGen::Base
-  
+
   attr_reader :name, :test_name, :class_name
-  
+
   def initialize(runtime_args, runtime_options = {})
     super
     usage if args.empty?
@@ -9,7 +9,7 @@ class TestUnitGenerator < RubiGen::Base
     @test_name      = "test_#{name}".underscore
     @class_name     = name.camelize
   end
-  
+
   def manifest
     record do |m|
       m.directory 'test'

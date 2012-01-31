@@ -3,26 +3,26 @@ require File.dirname(__FILE__) + '/manifest'
 require File.dirname(__FILE__) + '/spec'
 require File.dirname(__FILE__) + '/generated_attribute'
 
-# RubiGen is a code generation platform Ruby frameworks.  
+# RubiGen is a code generation platform Ruby frameworks.
 # Generators are easily invoked within Ruby framework instances
 # to add and remove components such as library and test files.
 #
 # New generators are easy to create and may be distributed within RubyGems,
 # user home directory, or within each Ruby framework that uses RubiGen.
 #
-# For example, newgem uses RubiGen to generate new RubyGems. Those 
-# generated RubyGems can then use RubiGen (via a generated script/generate 
+# For example, newgem uses RubiGen to generate new RubyGems. Those
+# generated RubyGems can then use RubiGen (via a generated script/generate
 # application) to generate tests and executable apps, etc, for the RubyGem.
 #
 # Generators may subclass other generators to provide variations that
 # require little or no new logic but replace the template files.
 #
 # For a RubyGem, put your generator classes and templates within subfolders
-# of the +generators+ directory. 
+# of the +generators+ directory.
 #
-# The layout of generator files can be seen in the built-in 
+# The layout of generator files can be seen in the built-in
 # +test_unit+ generator:
-#   
+#
 #   test_unit_generators/
 #     test_unit/
 #       test_unit_generator.rb
@@ -35,10 +35,10 @@ require File.dirname(__FILE__) + '/generated_attribute'
 # directory.
 #
 # The filenames of the templates don't matter, but choose something that
-# will be self-explatatory since you will be referencing these in the 
+# will be self-explatatory since you will be referencing these in the
 # +manifest+ method inside your generator subclass.
 #
-# 
+#
 module RubiGen
   class GeneratorError < StandardError; end
   class UsageError < GeneratorError; end
@@ -47,11 +47,11 @@ module RubiGen
   # The base code generator is bare-bones.  It sets up the source and
   # destination paths and tells the logger whether to keep its trap shut.
   #
-  # It's useful for copying files such as stylesheets, images, or 
+  # It's useful for copying files such as stylesheets, images, or
   # javascripts.
   #
   # For more comprehensive template-based passive code generation with
-  # arguments, you'll want RubiGen::NamedBase. 
+  # arguments, you'll want RubiGen::NamedBase.
   #
   # Generators create a manifest of the actions they perform then hand
   # the manifest to a command which replays the actions to do the heavy
@@ -106,7 +106,7 @@ module RubiGen
 
       # Silence the logger if requested.
       logger.quiet = options[:quiet]
-      
+
       @stdout = options[:stdout]
 
       # Raise usage error if help is requested.
@@ -149,8 +149,8 @@ module RubiGen
     def destination_path(relative_destination)
       File.expand_path(File.join(destination_root, relative_destination))
     end
-    
-    # Return the basename of the destination_root, 
+
+    # Return the basename of the destination_root,
     # BUT, if it is trunk, tags, or branches, it continues to the
     # parent path for the name
     def base_name
@@ -162,7 +162,7 @@ module RubiGen
       end
       name
     end
-    
+
     protected
       # Convenience method for generator subclasses to record a manifest.
       def record

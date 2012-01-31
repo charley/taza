@@ -42,7 +42,7 @@ begin
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
-end  
+end
 
 desc "Build RDoc"
 task :rdoc do
@@ -87,7 +87,7 @@ task :flog do
   File.open(FLOG_REPORT,"w") {|file| flogger.report file }
   puts File.readlines(FLOG_REPORT).select {|line| line =~ FLOG_LINE || line =~ /Total Flog/}
 end
- 
+
 desc "Verify Flog Score is under threshold"
 task :verify_flog => :flog do |t|
   # I hate how ridiclous this is (Adam)

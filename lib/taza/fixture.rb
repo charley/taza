@@ -5,14 +5,14 @@ require 'taza/entity'
 
 module Taza
   # The module that will mixin methods based on the fixture files in your 'spec/fixtures'
-  # 
+  #
   # Example:
   #   describe "something" do
   #     it "should test something" do
   #       users(:jane_smith).first_name.should eql("jane")
   #     end
   #   end
-  # 
+  #
   #  where there is a spec/fixtures/users.yml file containing a entry of:
   # jane_smith:
   #   first_name: jane
@@ -33,15 +33,15 @@ module Taza
         @fixtures[File.basename(file,'.yml').to_sym] = entitized_fixture
       end
     end
-    
+
     def fixture_names # :nodoc:
       @fixtures.keys
     end
 
     def get_fixture(fixture_file_key)
       @fixtures[fixture_file_key]
-    end  
-    
+    end
+
     def get_fixture_entity(fixture_file_key,entity_key) # :nodoc:
       @fixtures[fixture_file_key][entity_key]
     end
@@ -49,7 +49,7 @@ module Taza
     def pluralized_fixture_exists?(singularized_fixture_name) # :nodoc:
       fixture_exists?(singularized_fixture_name.pluralize.to_sym)
     end
-    
+
     def specific_fixture_entities(fixture_key, select_array)
       cloned_fixture = @fixtures[fixture_key].clone
       cloned_fixture.delete_if {|key , value| !select_array.include?(key)}
@@ -63,6 +63,6 @@ module Taza
      File.join('.','spec','fixtures','')
    end
   end
-  
+
 end
 

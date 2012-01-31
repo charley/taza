@@ -26,7 +26,7 @@ If you do not use +rcov+ from Rake, you must modify them.
 
 Type the following while editing your program:
   M-x rcov
-  
+
 === Setting the reference point
 
 +rcov+'s <tt>--text-coverage-diff</tt> mode compares the current coverage status against

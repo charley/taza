@@ -19,7 +19,7 @@ require 'taglob/extensions'
 
 module Taglob
   VERSION = '1.0.0'
-  
+
   def self.invalid_tags(pattern,valid_tags)
     invalids = {}
     Dir.tags(pattern).each do |file, tags|

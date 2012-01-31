@@ -20,7 +20,7 @@ $rcov --no-html --gcc -D --include-file=sample --exclude=rcov sample_05.rb > exp
 $rcov --no-html -D --include-file=sample --exclude=rcov sample_05.rb > expected_coverage/diff.out
 $rcov --no-html --no-color -D --include-file=sample --exclude=rcov sample_05.rb > expected_coverage/diff-no-color.out
 $rcov --no-html --gcc --include-file=sample --exclude=rcov sample_05.rb > expected_coverage/diff-gcc-all.out
-  
+
 =end
 
 class TestFunctional < Test::Unit::TestCase
@@ -99,7 +99,7 @@ class TestFunctional < Test::Unit::TestCase
       cmp "diff-gcc-all.out"
     end
 
-    
+
   end
 
 end

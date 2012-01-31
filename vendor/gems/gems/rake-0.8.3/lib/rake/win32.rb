@@ -1,14 +1,14 @@
 module Rake
-  
+
   # Win 32 interface methods for Rake. Windows specific functionality
   # will be placed here to collect that knowledge in one spot.
   module Win32
-    
+
     # Error indicating a problem in locating the home directory on a
     # Win32 system.
     class Win32HomeError < RuntimeError
     end
-    
+
     class << self
       # True if running on a windows system.
       def windows?
@@ -23,7 +23,7 @@ module Rake
           system(*cmd)
         end
       end
-      
+
       # The standard directory containing system wide rake files on
       # Win 32 systems. Try the following environment variables (in
       # order):
@@ -43,12 +43,12 @@ module Rake
           win32_shared_path.nil? or win32_shared_path.empty?
         normalize(File.join(win32_shared_path, 'Rake'))
       end
-      
+
       # Normalize a win32 path so that the slashes are all forward slashes.
       def normalize(path)
         path.gsub(/\\/, '/')
       end
-      
+
     end
   end
 end

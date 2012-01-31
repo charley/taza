@@ -6,7 +6,7 @@ which can be used to automate test coverage analysis.  Basic usage is as
 follows:
 
   require 'rcov/rant'
- 
+
   desc "Create a cross-referenced code coverage report."
   gen Rcov do |g|
     g.test_files = sys['test/test*.rb']
@@ -47,7 +47,7 @@ have several rcov tasks:
     g.output_dir = "coverage.ccanalyzer"
   end
 
-=== Options specified passed to the generator 
+=== Options specified passed to the generator
 
 The +Rcov+ generator recognizes the following options:
 +libs+:: directories to be added to the <tt>$LOAD_PATH</tt>
@@ -62,7 +62,7 @@ The +Rcov+ generator recognizes the following options:
 
 === Options passed through the <tt>rake</tt> command line
 
-You can override the options defined in the Rcov tasks by specifying them 
+You can override the options defined in the Rcov tasks by specifying them
 using environment variables at the time rant is executed.
   RCOVPATH=/my/modified/rcov rant rcov       # use the specified rcov executable
   RCOVOPTS="--no-callsites -x foo" rant rcov # pass those options to rcov

@@ -1,5 +1,5 @@
 
-Source code, additional information, screenshots... available at 
+Source code, additional information, screenshots... available at
     http://eigenclass.org/hiki/rcov
 
 If you're on win32, you can also find a pre-built rcovrt.so (which makes
@@ -14,7 +14,7 @@ test coverage of target code. It features:
   dependency analysis...
 * detection of uncovered code introduced since the last run ("differential
   code coverage")
-* fairly accurate coverage information through code linkage inference using 
+* fairly accurate coverage information through code linkage inference using
   simple heuristics
 * cross-referenced XHTML and several kinds of text reports
 * support for easy automation with Rake and Rant
@@ -66,7 +66,7 @@ The text report (also used by default in RcovTasks) resembles
 
 The (undecorated) textual output with execution count information looks like this:
 
- $ rcov --no-html --text-counts b.rb 
+ $ rcov --no-html --text-counts b.rb
  ================================================================================
  ./b.rb
  ================================================================================
@@ -90,14 +90,14 @@ tests:
     Started
     .......................................
     Finished in 1.163085 seconds.
-    
+
     39 tests, 415 assertions, 0 failures, 0 errors
-    
+
     ================================================================================
     !!!!! Uncovered code introduced in lib/rcov.rb
-    
+
     ### lib/rcov.rb:207
-       
+
 	 def precompute_coverage(comments_run_by_default = true)
 	   changed = false
 	   lastidx = lines.size - 1

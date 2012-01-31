@@ -12,7 +12,7 @@
   * Added send (3).
   * Capture and ignore SyntaxErrors from template/generator code. Stupid DHH.
   * Report can now take an IO object.
-  * block_args now penalizes all non-benign forms of block_pass. 
+  * block_args now penalizes all non-benign forms of block_pass.
   * Added usage to bin/flog. Moved -I processing to bin/flog.
   * Added unpack.rb and update_scores.rb at base level (not installed)
   * Added scoring for block_pass.
@@ -30,7 +30,7 @@
 == 1.0.1 / 2007-08-01
 
 * 1 bug fix:
-  * New Rule: NEVER release new software when exhausted: Fixed dependency list. 
+  * New Rule: NEVER release new software when exhausted: Fixed dependency list.
 
 == 1.0.0 / 2007-08-01
 

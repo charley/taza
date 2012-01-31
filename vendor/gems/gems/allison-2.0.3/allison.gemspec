@@ -26,11 +26,11 @@ end
 
 
 # # Original Rakefile source (requires the Echoe gem):
-# 
-# 
+#
+#
 # require 'rubygems'
 # require 'echoe'
-# 
+#
 # Echoe.new('allison') do |p|
 #   p.project = 'fauna'
 #   p.author = 'Evan Weaver'
@@ -44,5 +44,5 @@ end
 #     p.rdoc_template = File.expand_path(File.dirname(__FILE__) + "/lib/allison")
 #   end
 # end
-# 
+#
 # task :"cache/BODY" => [:clean, :doc] # Rebuild the cache before packaging

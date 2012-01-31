@@ -6,11 +6,11 @@ class TestGenerateBuiltinApplication < Test::Unit::TestCase
   def setup
     bare_setup
   end
-  
+
   def teardown
     bare_teardown
   end
-  
+
   def test_ruby_app
     run_generator('ruby_app', [APP_ROOT], sources)
     assert_generated_file("Rakefile")
@@ -19,7 +19,7 @@ class TestGenerateBuiltinApplication < Test::Unit::TestCase
     assert_generated_file("test/test_helper.rb")
     assert_generated_file("script/generate")
     assert_generated_file("script/destroy")
-    
+
     assert_generated_module("lib/#{PROJECT_NAME}")
   end
 
@@ -29,7 +29,7 @@ class TestGenerateBuiltinApplication < Test::Unit::TestCase
      RubiGen::PathSource.new(:test, File.join(File.dirname(__FILE__),"..", "generators"))
     ]
   end
-  
+
   def generator_path
     "app_generators"
   end

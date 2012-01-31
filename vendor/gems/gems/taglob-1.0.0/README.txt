@@ -25,7 +25,7 @@ Imagine a bunch of files that look like
     end
   end
 
-And then you are like dang I wish I could glob these files based on the 
+And then you are like dang I wish I could glob these files based on the
 tags I setup! What am I doing with my life???
 Taglob! (like Tada! but more like its unsophisticated country cousin(in name only(parentheses)))
   Dir.taglob("**/*.rb","foo","lol")
@@ -35,7 +35,7 @@ Totally small, totally useless, totally taglob.
 
   require 'rubygems'
   require 'taglob'
-  
+
   Dir.taglob('**/*.rb','foo','bar','buttz').each {|file| puts "#{file} was tagged with foo or bar or buttz!"}
 
 On a more serious note:

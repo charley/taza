@@ -91,7 +91,7 @@ if /linux/i.match(RUBY_PLATFORM)
 			return nil
 		end
 
-		def keystrokes(window,button) 
+		def keystrokes(window,button)
 			keys = @@window_keys.find{|wk| wk.first.match(window.name)}
 			if keys
 				return keys.last[button.downcase]

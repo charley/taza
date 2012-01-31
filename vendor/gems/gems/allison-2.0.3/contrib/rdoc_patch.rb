@@ -24,7 +24,7 @@ module RubyToken
   class Token
     def to_html
       html = CGI.escapeHTML(text)
-      
+
       if text.size == 1 and '!@#$%^&*(){}?+/=[]\\|.,"\'<>-_;:'.include?(text)
         return "<strong>#{ html }</strong>"
       else
@@ -46,7 +46,7 @@ module RubyToken
 #<RubyToken::TkfLBRACK:0xb786d2d0 @text="[", @char_no=30, @line_no=347>
 #<RubyToken::TkRBRACK:0xb786c8d0 @text="]", @char_no=39, @line_no=347>
 #<RubyToken::TkFALSE:0xb7868488 @text="false", @char_no=19, @line_no=349, @name="false">
-  
+
 end
 
 module SM
@@ -85,17 +85,17 @@ module SM
         @res << fragment.txt
       end
     end
-    
+
     def accept_pure_html(am, fragment)
       @res << fragment.txt
     end
-    
+
     def accept_pure_ruby(am, fragment)
       @res << eval(fragment.txt)
     end
   end
 
-  class LineCollection  
+  class LineCollection
     def accept(am, visitor)
       visitor.start_accepting
 
@@ -128,44 +128,44 @@ module SM
 
       visitor.end_accepting
     end
-  
+
   end
-  
+
   class SimpleMarkup
   private
-  
+
     def assign_types_to_lines(margin = 0, level = 0)
 
       while line = @lines.next
-      
+
         if /^\s*%html/ === line.text then
           line.text.sub!("%html","")
           line.stamp( Line::PURE_HTML, level )
           next
         end
-      
+
         if /^\s*%transclude/ === line.text then
           line.text.sub!("%transclude","")
           line.stamp( Line::TRANSCLUDE, level )
           next
         end
-      
+
         if /^\s*%ruby/ === line.text then
           line.text.sub!("%ruby","")
           line.stamp( Line::PURE_RUBY, level )
           next
         end
-      
+
         if line.isBlank?
           line.stamp(Line::BLANK, level)
           next
         end
-        
+
         # if a line contains non-blanks before the margin, then it must belong
         # to an outer level
 
         text = line.text
-        
+
         for i in 0...margin
           if text[i] != SPACE
             @lines.unget
@@ -233,9 +233,9 @@ module SM
           line.strip_leading(margin + prefix_length)
           next
         end
-        
+
         # If the character's a space, then we have verbatim text,
-        # otherwise 
+        # otherwise
 
         if active_line[0] == SPACE
           line.strip_leading(margin) if margin > 0

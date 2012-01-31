@@ -11,7 +11,7 @@ typedef struct {
         char *sourcefile;
         unsigned int sourceline;
         VALUE curr_meth;
-} type_def_site;       
+} type_def_site;
 static VALUE caller_info = 0;
 static VALUE method_def_site_info = 0;
 
@@ -35,14 +35,14 @@ record_callsite_info(VALUE args)
   caller_ary = pargs[0];
   curr_meth = pargs[1];
   count_hash = rb_hash_aref(caller_info, curr_meth);
-  if(TYPE(count_hash) != T_HASH) { 
+  if(TYPE(count_hash) != T_HASH) {
           /* Qnil, anything else should be impossible unless somebody's been
            * messing with ObjectSpace */
           count_hash = rb_hash_new();
           rb_hash_aset(caller_info, curr_meth, count_hash);
   }
   count = rb_hash_aref(count_hash, caller_ary);
-  if(count == Qnil) 
+  if(count == Qnil)
           count = INT2FIX(0);
   count = INT2FIX(FIX2UINT(count) + 1);
   rb_hash_aset(count_hash, caller_ary, count);
@@ -72,7 +72,7 @@ record_method_def_site(VALUE args)
   printf("DEFSITE: %s:%d  for %s\n", pargs->sourcefile, pargs->sourceline+1,
                   RSTRING(rb_inspect(pargs->curr_meth))->ptr);
   */
-  
+
   return Qnil;
 }
 
@@ -116,9 +116,9 @@ callsite_custom_backtrace(int lev)
 
   return ary;
 }
-  
+
 static void
-coverage_event_callsite_hook(rb_event_t event, NODE *node, VALUE self, 
+coverage_event_callsite_hook(rb_event_t event, NODE *node, VALUE self,
                 ID mid, VALUE klass)
 {
  VALUE caller_ary;
@@ -139,8 +139,8 @@ coverage_event_callsite_hook(rb_event_t event, NODE *node, VALUE self,
  args[1] = curr_meth;
  rb_protect(record_callsite_info, (VALUE)args, &status);
  if(!status && node) {
-         type_def_site args;        
-         
+         type_def_site args;
+
          args.sourcefile = node->nd_file;
          args.sourceline = nd_line(node) - 1;
          args.curr_meth = curr_meth;
@@ -158,9 +158,9 @@ cov_install_callsite_hook(VALUE self)
           if(TYPE(caller_info) != T_HASH)
                   caller_info = rb_hash_new();
           callsite_hook_set_p = 1;
-          rb_add_event_hook(coverage_event_callsite_hook, 
+          rb_add_event_hook(coverage_event_callsite_hook,
                           RUBY_EVENT_CALL);
-          
+
           return Qtrue;
   } else
           return Qfalse;
@@ -170,7 +170,7 @@ cov_install_callsite_hook(VALUE self)
 static VALUE
 cov_remove_callsite_hook(VALUE self)
 {
- if(!callsite_hook_set_p) 
+ if(!callsite_hook_set_p)
          return Qfalse;
  else {
          rb_remove_event_hook(coverage_event_callsite_hook);
@@ -196,7 +196,7 @@ static VALUE
 cov_reset_callsite(VALUE self)
 {
   if(callsite_hook_set_p) {
-	  rb_raise(rb_eRuntimeError, 
+	  rb_raise(rb_eRuntimeError,
 		  "Cannot reset the callsite info in the middle of a traced run.");
 	  return Qnil;
   }
@@ -215,7 +215,7 @@ Init_rcov_callsite()
  ID id_coverage__ = rb_intern("RCOV__");
  ID id_script_lines__ = rb_intern("SCRIPT_LINES__");
 
- if(rb_const_defined(rb_cObject, id_rcov)) 
+ if(rb_const_defined(rb_cObject, id_rcov))
          mRcov = rb_const_get(rb_cObject, id_rcov);
  else
          mRcov = rb_define_module("Rcov");
@@ -230,12 +230,12 @@ Init_rcov_callsite()
  method_def_site_info = rb_hash_new();
  rb_gc_register_address(&caller_info);
  rb_gc_register_address(&method_def_site_info);
- 
- rb_define_singleton_method(mRCOV__, "install_callsite_hook", 
+
+ rb_define_singleton_method(mRCOV__, "install_callsite_hook",
                  cov_install_callsite_hook, 0);
- rb_define_singleton_method(mRCOV__, "remove_callsite_hook", 
+ rb_define_singleton_method(mRCOV__, "remove_callsite_hook",
                  cov_remove_callsite_hook, 0);
- rb_define_singleton_method(mRCOV__, "generate_callsite_info", 
+ rb_define_singleton_method(mRCOV__, "generate_callsite_info",
 		 cov_generate_callsite_info, 0);
  rb_define_singleton_method(mRCOV__, "reset_callsite", cov_reset_callsite, 0);
 }

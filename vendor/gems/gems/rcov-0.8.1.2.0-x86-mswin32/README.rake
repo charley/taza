@@ -27,7 +27,7 @@ one used to generate the report(s) and the clobber_ one) and pass options to
    t.test_files = FileList['test/test*.rb']
    t.verbose = true
    ## get a text report on stdout when rake is run:
-   t.rcov_opts << "--text-report"  
+   t.rcov_opts << "--text-report"
    ## only report files under 80% coverage
    t.rcov_opts << "--threshold 80"
  end
@@ -47,7 +47,7 @@ removing that directory:
    t.rcov_opts << "--test-unit-only"
    t.output_dir = "coverage.sourcefile"
  end
- 
+
  Rcov::RcovTask.new(:rcov_ccanalyzer) do |t|
    t.test_files = FileList['test/test_CodeCoverageAnalyzer.rb']
    t.verbose = true
@@ -58,5 +58,5 @@ removing that directory:
 === Options passed through the <tt>rake</tt> command line
 
 You can override the options defined in the RcovTask by passing the new
-options at the time you invoke rake. 
+options at the time you invoke rake.
 The documentation for the Rcov::RcovTask explains how this can be done.

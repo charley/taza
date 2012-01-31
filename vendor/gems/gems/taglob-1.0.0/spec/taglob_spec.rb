@@ -10,7 +10,7 @@ describe Dir do
     tags.should have(3).items
   end
 
-  it "should select files containing a superset or the same set of the specified tags" do 
+  it "should select files containing a superset or the same set of the specified tags" do
     tagged_files = Dir.taglob('spec/tagged_files/*.rb','foo,bar,buttz')
     tagged_files.should be_a_kind_of(Array)
     tagged_files.should_not be_empty
@@ -18,13 +18,13 @@ describe Dir do
     tagged_files.should_not include('spec/tagged_files/foo.rb')
     tagged_files.should include('spec/tagged_files/foo_bar_buttz.rb')
   end
-  
+
   it "should not select files that are not tagged with specified tags" do
     tagged_files = Dir.taglob('spec/tagged_files/*.rb','lol,rofl')
     tagged_files.should be_a_kind_of(Array)
     tagged_files.should be_empty
   end
-  
+
   it "should not care where the taglob line is in the file" do
     tagged_files = Dir.taglob('spec/tagged_files/*.rb','buttz')
     tagged_files.should be_a_kind_of(Array)
@@ -32,7 +32,7 @@ describe Dir do
     tagged_files.should have(1).items
     tagged_files.should include('spec/tagged_files/foo_bar_buttz.rb')
   end
-  
+
   it "should count every taglob line" do
     tagged_files = Dir.taglob('spec/tagged_files/*.rb','epic,lulz')
     tagged_files.should be_a_kind_of(Array)
@@ -55,12 +55,12 @@ describe File do
     tags = File.tags('spec/tagged_files/foo.rb')
     tags.first.should eql('foo')
   end
-  
+
 end
 
 describe String do
 
-  it "should parse tags from taglob formatted line(#tags: foo,bar,buttz)" do 
+  it "should parse tags from taglob formatted line(#tags: foo,bar,buttz)" do
     tags = "#tags: foo,bar,buttz".tags
     tags.should be_a_kind_of(Array)
     tags.should_not be_empty
@@ -69,13 +69,13 @@ describe String do
     tags.should include('bar')
     tags.should include('buttz')
   end
-  
+
   it "should return an empty array for a taglob formatted line with no tags" do
     tags = "#tags: ".tags
     tags.should be_a_kind_of(Array)
     tags.should be_empty
   end
-  
+
   it "should return an empty array for an incorrectly formatted line" do
     tags = "#tags ".tags
     tags.should be_a_kind_of(Array)
@@ -87,13 +87,13 @@ describe String do
     tags.should be_a_kind_of(Array)
     tags.should be_empty
   end
-  
+
   it "should allow '#tags: ...' or '# tags: ' only" do
     tags = "#tags: lol,rofl".tags
     tags_with_space = "# tags: lol,rofl".tags
     tags.should == tags_with_space
   end
-  
+
   it "should ignore leading and trailing spaces in tags" do
     tags = "#tags: foo   ,    bar   , buttz".tags
     tags.should be_a_kind_of(Array)

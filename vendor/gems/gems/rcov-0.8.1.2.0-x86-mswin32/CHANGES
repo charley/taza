@@ -54,14 +54,14 @@ Bugfixes
 
 Minor enhancements
 ------------------
-* relevant summary values are identified using separate CSS classes 
+* relevant summary values are identified using separate CSS classes
   (microformat-style)
 
 Since 0.6.0 (2006-06-12)
 ========================
 Features
 --------
-* coverage/callsite data from multiple runs can be aggregated (--aggregate) 
+* coverage/callsite data from multiple runs can be aggregated (--aggregate)
 
 Bugfixes
 --------
@@ -101,7 +101,7 @@ Minor enhancements
 * more readable --text-coverage
 * set whether comments are "run" by default instead of attaching them to
   the following block of code (--[no-]comments)
-* --report-cov-bug can be used to report bugs in the coverage analysis 
+* --report-cov-bug can be used to report bugs in the coverage analysis
 
 Since 0.4.0 (2006-05-22)
 ========================
@@ -152,7 +152,7 @@ Backwards incompatible changes
 * renamed --text to --text-counts and --rich-text to --text-coverage: they
   were misnamed to begin with
 * changed the meaning of -t and -T (--text-summary and --text-report)
-* $0 is not changed by default for each loaded file anymore; the old 
+* $0 is not changed by default for each loaded file anymore; the old
   behavior (modulo a small bugfix) can be reproduced with --replace-progname
 
 Since 0.2.0 (2006-02-25)
@@ -168,7 +168,7 @@ Features
 Fixes
 -----
 * consider and/op operators
-* honor --no-color in (rich) text mode 
+* honor --no-color in (rich) text mode
 * output valid XHTML indices
 
 Since 0.1.0

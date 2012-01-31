@@ -17,7 +17,7 @@ class TazaGenerator < RubiGen::Base
   end
 
   def manifest
-    record do |m|    
+    record do |m|
       create_directories(m)
       m.template "rakefile.rb.erb", "rakefile"
       m.template "config.yml.erb", File.join("config","config.yml")
@@ -37,7 +37,7 @@ class TazaGenerator < RubiGen::Base
     m.directory File.join('spec','story')
     m.directory 'script'
   end
-  
+
   protected
     def banner
       <<-EOS

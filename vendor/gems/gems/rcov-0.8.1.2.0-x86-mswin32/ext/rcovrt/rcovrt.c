@@ -25,12 +25,12 @@ struct cov_array {
 };
 
 static struct cov_array *cached_array = 0;
-static char *cached_file = 0; 
+static char *cached_file = 0;
 
 
-/* 
+/*
  *
- * coverage hook and associated functions 
+ * coverage hook and associated functions
  *
  * */
 
@@ -39,7 +39,7 @@ coverage_increase_counter_uncached(char *sourcefile, unsigned int sourceline,
                                    char mark_only)
 {
   struct cov_array *carray = NULL;
- 
+
   if(sourcefile == NULL) {
           /* "can't happen", just ignore and avoid segfault */
           return NULL;
@@ -47,13 +47,13 @@ coverage_increase_counter_uncached(char *sourcefile, unsigned int sourceline,
           VALUE arr;
 
           arr = rb_hash_aref(oSCRIPT_LINES__, rb_str_new2(sourcefile));
-          if(NIL_P(arr)) 
+          if(NIL_P(arr))
                   return 0;
           rb_check_type(arr, T_ARRAY);
           carray = calloc(1, sizeof(struct cov_array));
           carray->ptr = calloc(RARRAY(arr)->len, sizeof(unsigned int));
           carray->len = RARRAY(arr)->len;
-          st_insert(coverinfo, (st_data_t)strdup(sourcefile), 
+          st_insert(coverinfo, (st_data_t)strdup(sourcefile),
                           (st_data_t) carray);
   } else {
           /* recovered carray, sanity check */
@@ -108,13 +108,13 @@ coverage_increase_counter_cached(char *sourcefile, int sourceline)
 
 
 static void
-coverage_event_coverage_hook(rb_event_t event, NODE *node, VALUE self, 
+coverage_event_coverage_hook(rb_event_t event, NODE *node, VALUE self,
                 ID mid, VALUE klass)
 {
  char *sourcefile;
  unsigned int sourceline;
  static unsigned int in_hook = 0;
- 
+
  if(in_hook) {
          return;
  }
@@ -129,18 +129,18 @@ coverage_event_coverage_hook(rb_event_t event, NODE *node, VALUE self,
          rb_protect(rb_inspect, klass, &status);
          if(!status) {
                  printf("EVENT: %d %s %s %s %d\n", event,
-                                 klass ? RSTRING(rb_inspect(klass))->ptr : "", 
+                                 klass ? RSTRING(rb_inspect(klass))->ptr : "",
                                  mid ? (mid == ID_ALLOCATOR ? "ID_ALLOCATOR" : rb_id2name(mid))
                                  : "unknown",
                                  node ? node->nd_file : "", node ? nd_line(node) : 0);
          } else {
                  printf("EVENT: %d %s %s %d\n", event,
-                                 mid ? (mid == ID_ALLOCATOR ? "ID_ALLOCATOR" : rb_id2name(mid)) 
+                                 mid ? (mid == ID_ALLOCATOR ? "ID_ALLOCATOR" : rb_id2name(mid))
                                  : "unknown",
                                  node ? node->nd_file : "", node ? nd_line(node) : 0);
          }
          rb_gv_set("$!", old_exception);
- } while (0); 
+ } while (0);
 #endif
 
  if(event & RUBY_EVENT_C_CALL) {
@@ -150,7 +150,7 @@ coverage_event_coverage_hook(rb_event_t event, NODE *node, VALUE self,
          in_hook--;
          return;
  }
- 
+
  if(node == NULL) {
          in_hook--;
          return;
@@ -175,10 +175,10 @@ cov_install_coverage_hook(VALUE self)
           coverage_hook_set_p = 1;
           /* TODO: allow C_CALL too, since it's supported already
            * the overhead is around ~30%, tested on typo */
-          rb_add_event_hook(coverage_event_coverage_hook, 
+          rb_add_event_hook(coverage_event_coverage_hook,
                        RUBY_EVENT_ALL & ~RUBY_EVENT_C_CALL &
                        ~RUBY_EVENT_C_RETURN & ~RUBY_EVENT_CLASS);
-          
+
           return Qtrue;
   }
   else
@@ -194,7 +194,7 @@ populate_cover(st_data_t key, st_data_t value, st_data_t cover)
  VALUE rval;
  struct cov_array *carray;
  unsigned int i;
- 
+
  rcover = (VALUE)cover;
  carray = (struct cov_array *) value;
  rkey = rb_str_new2((char*) key);
@@ -204,7 +204,7 @@ populate_cover(st_data_t key, st_data_t value, st_data_t cover)
  RARRAY(rval)->len = carray->len;
 
  rb_hash_aset(rcover, rkey, rval);
- 
+
  return ST_CONTINUE;
 }
 
@@ -213,7 +213,7 @@ static int
 free_table(st_data_t key, st_data_t value, st_data_t ignored)
 {
  struct cov_array *carray;
- 
+
  carray = (struct cov_array *) value;
  free((char *)key);
  free(carray->ptr);
@@ -226,7 +226,7 @@ free_table(st_data_t key, st_data_t value, st_data_t ignored)
 static VALUE
 cov_remove_coverage_hook(VALUE self)
 {
- if(!coverage_hook_set_p) 
+ if(!coverage_hook_set_p)
          return Qfalse;
  else {
          rb_remove_event_hook(coverage_event_coverage_hook);
@@ -258,14 +258,14 @@ static VALUE
 cov_reset_coverage(VALUE self)
 {
   if(coverage_hook_set_p) {
-	  rb_raise(rb_eRuntimeError, 
+	  rb_raise(rb_eRuntimeError,
 		  "Cannot reset the coverage info in the middle of a traced run.");
 	  return Qnil;
   }
 
   cached_array = 0;
   cached_file = 0;
-  st_foreach(coverinfo, free_table, Qnil); 
+  st_foreach(coverinfo, free_table, Qnil);
   st_free_table(coverinfo);
   coverinfo = 0;
 
@@ -293,10 +293,10 @@ Init_rcovrt()
  ID id_rcov = rb_intern("Rcov");
  ID id_coverage__ = rb_intern("RCOV__");
  ID id_script_lines__ = rb_intern("SCRIPT_LINES__");
- 
+
  id_cover = rb_intern("COVER");
 
- if(rb_const_defined(rb_cObject, id_rcov)) 
+ if(rb_const_defined(rb_cObject, id_rcov))
          mRcov = rb_const_get(rb_cObject, id_rcov);
  else
          mRcov = rb_define_module("Rcov");
@@ -315,11 +315,11 @@ Init_rcovrt()
 
  coverage_hook_set_p = 0;
 
- rb_define_singleton_method(mRCOV__, "install_coverage_hook", 
+ rb_define_singleton_method(mRCOV__, "install_coverage_hook",
                  cov_install_coverage_hook, 0);
- rb_define_singleton_method(mRCOV__, "remove_coverage_hook", 
+ rb_define_singleton_method(mRCOV__, "remove_coverage_hook",
                  cov_remove_coverage_hook, 0);
- rb_define_singleton_method(mRCOV__, "generate_coverage_info", 
+ rb_define_singleton_method(mRCOV__, "generate_coverage_info",
 		 cov_generate_coverage_info, 0);
  rb_define_singleton_method(mRCOV__, "reset_coverage", cov_reset_coverage, 0);
  rb_define_singleton_method(mRCOV__, "ABI", cov_ABI, 0);

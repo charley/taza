@@ -13,7 +13,7 @@ def load_mocha
 
 This RubyGem is required to run the tests.
 
-Install: gem install mocha    
+Install: gem install mocha
 EOS
   end
   require 'mocha'

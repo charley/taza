@@ -52,7 +52,7 @@ See class rdoc for help. Hint: ri Hoe
 or
 
   require 'hoe'
-  
+
   Hoe.new(projectname, version) do |p|
     # ... project specific data ...
   end

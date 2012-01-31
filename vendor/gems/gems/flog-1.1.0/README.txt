@@ -16,7 +16,7 @@ report. The higher the score, the more pain the code is in.
 
     % ./bin/flog bin/flog
     Total score = 128.7
-    
+
     Flog#report: (21)
          4: puts
          2: sort_by
