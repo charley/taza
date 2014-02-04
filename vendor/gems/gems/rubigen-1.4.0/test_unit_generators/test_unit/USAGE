@@ -1,5 +1,5 @@
 Description:
-    Stubs out a new test (using Test::Unit). Pass the model name, either 
+    Stubs out a new test (using Test::Unit). Pass the model name, either
     CamelCased or under_scored.
 
     This generates a unit test in /test.

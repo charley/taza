@@ -10,7 +10,7 @@ Spec::Runner.configure do |config|
   config.mock_with :mocha
 end
 
-def null_device  
+def null_device
   File.exists?('/dev/null') ? '/dev/null' : 'NUL'
 end
 
@@ -40,7 +40,7 @@ module Helpers
       site_name.camelize.constantize
     end
   end
-  
+
   module Taza
     def stub_settings
       ::Taza::Settings.stubs(:config).returns({})

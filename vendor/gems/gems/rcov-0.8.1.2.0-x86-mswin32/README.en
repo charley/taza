@@ -1,5 +1,5 @@
 rcov  copyright (c) 2004-2006 Mauricio Fernandez <mfp@acm.org>
-rcov includes xx 0.1.0, copyright (c) 2005, ePark Labs, Inc. and contributors 
+rcov includes xx 0.1.0, copyright (c) 2005, ePark Labs, Inc. and contributors
 
 rcov README
 ============
@@ -11,7 +11,7 @@ rcov README
     dependency analysis...
   * detection of uncovered code introduced since the last run ("differential
     code coverage")
-  * fairly accurate coverage information through code linkage inference using 
+  * fairly accurate coverage information through code linkage inference using
     simple heuristics
   * cross-referenced XHTML and several kinds of text reports
   * support for easy automation with Rake and Rant
@@ -44,7 +44,7 @@ Normal install
 
   A normal (rcovrt-enabled) install requires Ruby >= 1.8.3 and a working C
   toolchain; if you cannot compile Ruby extensions proceed as described below.
-  
+
   If you're on win32, you can find a pre-built rcovrt extension at
 	 http://eigenclass.org/hiki.rb?rcov
 
@@ -59,7 +59,7 @@ Install without the rcovrt extension
   # ruby setup.rb all --without-ext
 
   will install rcov without building the rcovrt extension.
-  
+
 Usage
 -----
 
@@ -77,7 +77,7 @@ Usage
   files: the tests themselves, files installed in Ruby's standard locations,
   etc.  See  rcov --help  for the list of regexps rcov matches filenames
   against.
-  
+
   rcov can also be used from Rake; see README.rake or the RDoc documentation
   for more information.  The Rakefile included in rcov's sources holds a few
   tasks that run rcov on itself, producing a number of reports. You can try
@@ -87,7 +87,7 @@ Usage
     ruby setup.rb setup
   so that the rcovrt extension can be used to speed up the process.
   This will generate a cross-referenced XHTML report under coverage/.
- 
+
   rcov can output information in several formats, and perform different kinds
   of analyses in addition to plain code coverage.  See  rcov --help  for a
   description of the available options.

@@ -24,7 +24,7 @@ code analysis and its capabilities for coverage information and execution
 count gathering.
 
 The main classes of interest are Rcov::FileStatistics,
-Rcov::CodeCoverageAnalyzer and Rcov::CallSiteAnalyzer. 
+Rcov::CodeCoverageAnalyzer and Rcov::CallSiteAnalyzer.
 
 Rcov::FileStatistics can use some heuristics to determine
 which parts of the file are executable and which are mere comments.

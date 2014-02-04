@@ -18,24 +18,24 @@ module Taglob
         Dir.taglob(pattern,tags) unless tags.nil? || pattern.nil?
       end
     end
-    
+
     class TestTagsTask < TagsTask
       def initialize(name = :test_tags)
         super(name)
       end
-      
+
       def define
         ::Rake::TestTask.new @name do |t|
           t.test_files = test_files
         end
-      end      
+      end
     end
-    
+
     class SpecTagsTask < TagsTask
       def initialize(name = :spec_tags)
         super(name)
       end
-      
+
       def define
         ::Spec::Rake::SpecTask.new @name do |t|
           t.spec_files = test_files

@@ -11,9 +11,9 @@ class Dir
 
   def self.taglob(pattern,tags)
     if(tags.include?('|'))
-      Dir.tag_or(pattern,*tags.split('|'))      
+      Dir.tag_or(pattern,*tags.split('|'))
     else
-      Dir.tag_and(pattern,*tags.split(','))      
+      Dir.tag_and(pattern,*tags.split(','))
     end
   end
 
@@ -24,7 +24,7 @@ class Dir
     end
     tagged_files
   end
-  
+
   def self.tag_or(pattern, *tags)
     tagged_files = []
     self.tags(pattern).each do |file,parsed_tags|

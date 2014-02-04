@@ -1,7 +1,7 @@
 module Taza
   # Flows provide a way to write and manage common actions on a site.
-  # For instance, on an e-commerce site you may have multiple tests where a user is supposed to create a 
-  # new account and add a product to the shopping bag. In this case you could have two flows. create_an_account 
+  # For instance, on an e-commerce site you may have multiple tests where a user is supposed to create a
+  # new account and add a product to the shopping bag. In this case you could have two flows. create_an_account
   # and add_product_to_bag.
   #
   # Here's how you would get this started where your site is called Widgets of the Future:

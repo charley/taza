@@ -2,19 +2,19 @@ module Watir
   module Exception
 
     # Root class for all Watir Exceptions
-    class WatirException < RuntimeError  
+    class WatirException < RuntimeError
         def initialize(message="")
             super(message)
         end
     end
-    
+
     # This exception is thrown if an attempt is made to access an object that doesn't exist
     class UnknownObjectException < WatirException; end
     # This exception is thrown if an attempt is made to access an object that is in a disabled state
     class ObjectDisabledException   < WatirException; end
-    # This exception is thrown if an attempt is made to access a frame that cannot be found 
+    # This exception is thrown if an attempt is made to access a frame that cannot be found
     class UnknownFrameException< WatirException; end
-    # This exception is thrown if an attempt is made to access a form that cannot be found 
+    # This exception is thrown if an attempt is made to access a form that cannot be found
     class UnknownFormException< WatirException; end
     # This exception is thrown if an attempt is made to access an object that is in a read only state
     class ObjectReadOnlyException  < WatirException; end
@@ -34,9 +34,9 @@ module Watir
     class TimeOutException < WatirException
       def initialize(duration, timeout)
         @duration, @timeout = duration, timeout
-      end 
+      end
       attr_reader :duration, :timeout
     end
-    
+
   end
 end

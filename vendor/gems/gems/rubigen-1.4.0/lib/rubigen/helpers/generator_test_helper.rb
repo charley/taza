@@ -100,7 +100,7 @@ module RubiGen
         yield( name, $1 ) if block_given?
       end
     end
-    
+
     def app_root_files
       Dir[APP_ROOT + '/**/*']
     end
@@ -108,26 +108,26 @@ module RubiGen
     def rubygem_folders
       %w[bin examples lib test]
     end
-  
+
     def rubygems_setup
       bare_setup
       rubygem_folders.each do |folder|
         Dir.mkdir("#{APP_ROOT}/#{folder}") unless File.exists?("#{APP_ROOT}/#{folder}")
       end
     end
-  
+
     def rubygems_teardown
       bare_teardown
     end
-  
+
     def bare_setup
       FileUtils.mkdir_p(APP_ROOT)
       @stdout = StringIO.new
     end
-  
+
     def bare_teardown
       FileUtils.rm_rf TMP_ROOT || APP_ROOT
     end
-  
+
   end
 end

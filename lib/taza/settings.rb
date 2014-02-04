@@ -17,11 +17,11 @@ module Taza
     def self.config_file_path # :nodoc:
       File.join(config_folder,'config.yml')
     end
-    
+
     def self.config_folder # :nodoc:
       File.join(path,'config')
     end
-    
+
     def self.site_file(site_name) # :nodoc:
       YAML.load_file(File.join(config_folder,"#{site_name.underscore}.yml"))[ENV['TAZA_ENV']]
     end

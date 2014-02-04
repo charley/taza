@@ -1,6 +1,6 @@
 = taza
 
-* http://github.com/scudco/taza/tree/master 
+* http://github.com/scudco/taza/tree/master
 
 == DESCRIPTION:
 
@@ -46,11 +46,11 @@ That will generate an RSpec HTML report at artifacts/functional/google/index.htm
 
 == REQUIREMENTS:
 
-* taglob 
+* taglob
 
 == INSTALL:
 
-* sudo gem install taza 
+* sudo gem install taza
 * gem install taza
 
 == LICENSE:

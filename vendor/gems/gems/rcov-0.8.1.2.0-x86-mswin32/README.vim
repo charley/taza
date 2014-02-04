@@ -25,9 +25,9 @@ in order to take the current status as the reference point.
 Type the following in command mode while editing your program:
    :compiler rcov
 
-rcov.vim assumes +rcov+ can be invoked with a rake task (see 
+rcov.vim assumes +rcov+ can be invoked with a rake task (see
 README.rake[link:files/README_rake.html] for
-information on how to create it). 
+information on how to create it).
 
 You can then execute +rcov+ and enter quickfix mode by typing
 
@@ -35,7 +35,7 @@ You can then execute +rcov+ and enter quickfix mode by typing
 
 where taskname is the +rcov+ task you want to use; if you didn't override the
 default name in the Rakefile, just
-  
+
    :make rcov
 
 will do.

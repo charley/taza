@@ -19,7 +19,7 @@ module RubiGen
         when :boolean                     then :check_box
         else
           :text_field
-      end      
+      end
     end
 
     def default
@@ -34,7 +34,7 @@ module RubiGen
         when :boolean                     then false
         else
           ""
-      end      
+      end
     end
   end
 end

@@ -1,4 +1,4 @@
-= RAKE -- Ruby Make 
+= RAKE -- Ruby Make
 
 Supporting Rake version: 0.8.2
 
@@ -105,7 +105,7 @@ For example, given a simple rakefile like this ...
     ruby "test/unittest.rb"
   end
 
-The command 
+The command
 
   $ rake
 
@@ -168,7 +168,7 @@ Options are:
 [<tt><em>name</em>=<em>value</em></tt>]
     Set the environment variable <em>name</em> to <em>value</em>
     during the execution of the <b>rake</b> command.  You can access
-    the value by using ENV['<em>name</em>'].  
+    the value by using ENV['<em>name</em>'].
 
 [<tt>--classic-namespace</tt> (-n)]
     Import the Task, FileTask, and FileCreateTask into the top-level

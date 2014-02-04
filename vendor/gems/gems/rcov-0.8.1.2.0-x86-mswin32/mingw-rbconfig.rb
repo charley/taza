@@ -2,7 +2,7 @@
 # This rbconfig.rb corresponds to a Ruby installation for win32 cross-compiled
 # with mingw under i686-linux. It can be used to cross-compile extensions for
 # win32 using said toolchain.
-# 
+#
 # This file assumes that a cross-compiled mingw32 build (compatible with the
 # mswin32 builds) is installed under $HOME/ruby-mingw32.
 

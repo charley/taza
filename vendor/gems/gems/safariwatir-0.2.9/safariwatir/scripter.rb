@@ -11,11 +11,11 @@ module Watir
   JS_LIBRARY = %|
 function dispatchOnChange(element) {
   var event = document.createEvent('HTMLEvents');
-  event.initEvent('change', true, true);  
+  event.initEvent('change', true, true);
   element.dispatchEvent(event);
 }|
 
-  class JavaScripter    
+  class JavaScripter
     def operate(locator, operation)
 %|#{locator}
 if (element) {
@@ -29,7 +29,7 @@ if (element) {
       # Needed because createEvent must be called on a document, and the JavaScripter sub-classes
       # do some transformations to lower-case "document" before we get here at runtime.
       script.gsub! "DOCUMENT", "document"
-      
+
 # Needed because I would like to blindly use return statements, but Safari 3 enforces
 # the ECMAScript standard that return statements are only valid within functions.
 %|#{JS_LIBRARY}
@@ -37,12 +37,12 @@ if (element) {
   #{script}
 })()|
     end
-    
+
     def find_cell(cell)
       return %|getElementById('#{cell.what}')| if cell.how == :id
       raise RuntimeError, "Unable to use #{cell.how} to find TableCell" unless cell.row
 
-      finder = 
+      finder =
       case cell.row.how
       when :id:
         %|getElementById('#{cell.row.what}')|
@@ -58,7 +58,7 @@ if (element) {
       else
         raise MissingWayOfFindingObjectException, "TableRow element does not support #{cell.row.how}"
       end
-      
+
       finder + %|.cells[#{cell.what-1}]|
     end
   end
@@ -78,20 +78,20 @@ if (element) {
 
   class TableJavaScripter < JavaScripter
     def_init :cell
-    
+
     def wrap(script)
       script.gsub! "document", "document." + find_cell(@cell)
       super(script)
     end
   end
-  
+
   class AppleScripter
     include Watir::Exception
-    
+
     attr_reader :js
     attr_accessor :typing_lag
     private :js
-    
+
     TIMEOUT = 10
 
     def initialize(scripter = JavaScripter.new)
@@ -99,7 +99,7 @@ if (element) {
       @app = Appscript.app("Safari")
       @document = @app.documents[1]
     end
-              
+
     def ensure_window_ready
       @app.activate
       @app.make(:new => :document) if @app.documents.get.size == 0
@@ -109,7 +109,7 @@ if (element) {
     def close
       @app.quit
     end
-  
+
     def navigate_to(url)
       page_load do
         @document.URL.set(url)
@@ -124,18 +124,18 @@ if (element) {
       execute(element.operate { %|return element.innerHTML| }, element)
     end
 
-    def operate_by_table_cell(element = @element)      
+    def operate_by_table_cell(element = @element)
 %|var element = document;
 if (element == undefined) {
   return '#{TABLE_CELL_NOT_FOUND}';
 }
 #{yield}|
     end
-        
+
     def get_value_for(element = @element)
       execute(element.operate { %|return element.value;| }, element)
     end
-      
+
     def document_text
       execute(%|return document.getElementsByTagName('BODY').item(0).innerText;|)
     end
@@ -147,7 +147,7 @@ if (element == undefined) {
     def document_title
       execute(%|return document.title;|)
     end
-  
+
     def focus(element)
       execute(element.operate { %|element.focus();| }, element)
     end
@@ -155,12 +155,12 @@ if (element == undefined) {
     def blur(element)
       execute(element.operate { %|element.blur();| }, element)
     end
-      
+
     def highlight(element, &block)
       execute(element.operate do
 %|element.originalColor = element.style.backgroundColor;
 element.style.backgroundColor = 'yellow';|
-      end, element)      
+      end, element)
 
       @element = element
       instance_eval(&block)
@@ -192,18 +192,18 @@ for (var i = 0; i < element.options.length; i++) {
 }
 if (selected == -1) {
   return '#{ELEMENT_NOT_FOUND}';
-} else if (previous_selection != selected) {        
+} else if (previous_selection != selected) {
   element.selectedIndex = selected;
   dispatchOnChange(element.options[selected]);
 }
 |
       end, element)
     end
-    
+
     def option_exists?(element = @element)
       element_exists?(element) { handle_option(element) }
     end
-    
+
     def handle_option(select_list)
 %|var option_found = false;
 for (var i = 0; i < element.options.length; i++) {
@@ -213,7 +213,7 @@ for (var i = 0; i < element.options.length; i++) {
 }
 if (!option_found) {
   return '#{ELEMENT_NOT_FOUND}';
-}|      
+}|
     end
     private :handle_option
 
@@ -228,20 +228,20 @@ for (var i = 0; i < element.options.length; i++) {
     selected = true;
   }
 }
-return selected;|      
+return selected;|
     end
     private :handle_option
-    
+
     def clear_text_input(element = @element)
       execute(element.operate { %|element.value = '';| }, element)
     end
-      
+
     def append_text_input(value, element = @element)
       sleep typing_lag
-      execute(element.operate do 
+      execute(element.operate do
 %|element.value += '#{value}';
 dispatchOnChange(element);
-element.setSelectionRange(element.value.length, element.value.length);| 
+element.setSelectionRange(element.value.length, element.value.length);|
       end, element)
     end
 
@@ -263,8 +263,8 @@ if (element.click) {
 }| })
       end
     end
-  
-    def click_link(element = @element)      
+
+    def click_link(element = @element)
       click = %/
 function baseTarget() {
   var bases = document.getElementsByTagName('BASE');
@@ -287,7 +287,7 @@ function nextLocation(element) {
   } else if (topTarget(target)) {
     top.location = element.href;
   } else {
-    top[target].location = element.href;    
+    top[target].location = element.href;
   }
 }
 var click = DOCUMENT.createEvent('HTMLEvents');
@@ -328,7 +328,7 @@ for (var i = 0; i < document.links.length; i++) {
       how = {:text => "text", :url => "href"}[element.how] unless how
       case element.what
         when Regexp:
-          %|#{how}.match(/#{element.what.source}/#{element.what.casefold? ? "i":nil})|          
+          %|#{how}.match(/#{element.what.source}/#{element.what.casefold? ? "i":nil})|
         when String:
           %|#{how} == '#{element.what}'|
         else
@@ -336,12 +336,12 @@ for (var i = 0; i < document.links.length; i++) {
       end
     end
     private :handle_match
-  
+
     # Contributed by Kyle Campos
     def checkbox_is_checked?(element = @element)
       execute(element.operate { %|return element.checked;| }, element)
     end
-  
+
     def operate_by_input_value(element)
       js.operate(%|
 var elements = document.getElementsByTagName('INPUT');
@@ -370,14 +370,14 @@ for (var i = 0; i < elements.length; i++) {
 var elements = document.getElementsByClassName('#{element.what}');
 var element = elements[0];|, yield)
     end
-    
-    # Checkboxes/Radios have the same name, different values    
+
+    # Checkboxes/Radios have the same name, different values
     def handle_form_element_name_match(element)
       element_capture = %|element = elements[i];break;|
       if element.by_value
 %|if (elements[i].value == '#{element.by_value}') {
   #{element_capture}
-}|        
+}|
       else
         element_capture
       end
@@ -416,7 +416,7 @@ tell window 1
 		click button named "OK"
 	end if
 end tell|)
-    end 
+    end
 
     def for_table(element)
       AppleScripter.new(TableJavaScripter.new(element))
@@ -450,14 +450,14 @@ for (var i = 0; i < element.options.length; i++) {
 return values|
       end, element)
       speak(values)
-    end    
+    end
 
     def speak(string)
 `osascript <<SCRIPT
 say "#{string.quote_safe}"
 SCRIPT`
       nil
-    end 
+    end
 
 
     private
@@ -468,39 +468,39 @@ SCRIPT`
         when NO_RESPONSE:
           nil
         when ELEMENT_NOT_FOUND:
-          raise UnknownObjectException, "Unable to locate #{element.name} element with #{element.how} of #{element.what}" 
+          raise UnknownObjectException, "Unable to locate #{element.name} element with #{element.how} of #{element.what}"
         when TABLE_CELL_NOT_FOUND:
           raise UnknownCellException, "Unable to locate a table cell with #{element.how} of #{element.what}"
         when FRAME_NOT_FOUND:
-          raise UnknownFrameException, "Unable to locate a frame with name #{element.name}" 
+          raise UnknownFrameException, "Unable to locate a frame with name #{element.name}"
         else
           response
       end
     end
-    
+
     def execute_and_ignore(script)
       eval_js(script)
       nil
     end
 
     # Must have "Enable access for assistive devices" checked in System Preferences > Universal Access
-    def execute_system_events(script)      
+    def execute_system_events(script)
 `osascript <<SCRIPT
-tell application "System Events" to tell process "Safari"  
+tell application "System Events" to tell process "Safari"
 	#{script}
 end tell
 SCRIPT`
       nil
     end
-    
-    def page_load      
+
+    def page_load
       yield
       sleep 1
-      
+
       tries = 0
-      TIMEOUT.times do |tries|        
+      TIMEOUT.times do |tries|
         if "complete" == eval_js("return DOCUMENT.readyState") && !@document.URL.get.blank?
-          sleep 0.4          
+          sleep 0.4
           handle_client_redirect
           break
         else
@@ -525,9 +525,9 @@ return "#{no_redirect_flag}"|)
         sleep time_til_redirect
       end
     end
-    
+
     def eval_js(script)
-      @app.do_JavaScript(js.wrap(script), :in => @document)      
+      @app.do_JavaScript(js.wrap(script), :in => @document)
     end
   end # class AppleScripter
 end

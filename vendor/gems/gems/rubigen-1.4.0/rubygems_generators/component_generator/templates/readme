@@ -9,7 +9,7 @@ How to create a Generator (Component Generator)
 4. Specify who the files in /templates are copied/templated at generation time within
    app_generators/mygen/mygen_generators.rb 's #manifest method.
     * Use m.file for files to copy over.
-    * Use m.template for files containing ERb. 
+    * Use m.template for files containing ERb.
       Create attr_reader accessors for any variables your templates need access to.
 5. Run unit tests.
 6. Add usage information in the USAGE file.

@@ -37,7 +37,7 @@
         <p>Get Version</p>
         <a href="http://rubyforge.org/projects/rubigen" class="numbers">1.4.0</a>
       </div>
-      
+
       <div id="twitter_search">
         <h3>Heard on twitter ('rubigen')...</h3>
         <!-- HELP FILE -  http://twitterwidget.jazzychad.com/tw/ -->
@@ -51,7 +51,7 @@
         </script>
         <script src="http://twitterwidget.jazzychad.com/tw/searchwidget.js" type="text/javascript"></script>
       </div>
-      
+
     </div>
     <h1>Ruby Generator Framework</h1>
 <h2>What</h2>
@@ -163,12 +163,12 @@ as this is how the generator is discovered (via <code>RubiGen::Base.use_applicat
 <span class="keyword">class </span><span class="class">YourgemGenerator</span> <span class="punct">&lt;</span> <span class="constant">RubiGen</span><span class="punct">::</span><span class="constant">Base</span>
   <span class="constant">DEFAULT_SHEBANG</span> <span class="punct">=</span> <span class="constant">File</span><span class="punct">.</span><span class="ident">join</span><span class="punct">(</span><span class="constant">Config</span><span class="punct">::</span><span class="constant">CONFIG</span><span class="punct">['</span><span class="string">bindir</span><span class="punct">'],</span>
                               <span class="constant">Config</span><span class="punct">::</span><span class="constant">CONFIG</span><span class="punct">['</span><span class="string">ruby_install_name</span><span class="punct">'])</span>
-                              
+
   <span class="ident">default_options</span>   <span class="symbol">:shebang</span> <span class="punct">=&gt;</span> <span class="constant">DEFAULT_SHEBANG</span><span class="punct">,</span>
                     <span class="symbol">:an_option</span> <span class="punct">=&gt;</span> <span class="punct">'</span><span class="string">some_default</span><span class="punct">'</span>
-  
+
   <span class="ident">attr_reader</span> <span class="symbol">:app_name</span><span class="punct">,</span> <span class="symbol">:module_name</span>
-  
+
   <span class="keyword">def </span><span class="method">initialize</span><span class="punct">(</span><span class="ident">runtime_args</span><span class="punct">,</span> <span class="ident">runtime_options</span> <span class="punct">=</span> <span class="punct">{})</span>
     <span class="keyword">super</span>
     <span class="ident">usage</span> <span class="keyword">if</span> <span class="ident">args</span><span class="punct">.</span><span class="ident">empty?</span>
@@ -177,17 +177,17 @@ as this is how the generator is discovered (via <code>RubiGen::Base.use_applicat
     <span class="attribute">@module_name</span>  <span class="punct">=</span> <span class="ident">app_name</span><span class="punct">.</span><span class="ident">camelize</span>
     <span class="ident">extract_options</span>
   <span class="keyword">end</span>
-    
+
   <span class="keyword">def </span><span class="method">manifest</span>
     <span class="comment"># Use /usr/bin/env if no special shebang was specified</span>
     <span class="ident">script_options</span>     <span class="punct">=</span> <span class="punct">{</span> <span class="symbol">:chmod</span> <span class="punct">=&gt;</span> <span class="number">0755</span><span class="punct">,</span> <span class="symbol">:shebang</span> <span class="punct">=&gt;</span> <span class="ident">options</span><span class="punct">[</span><span class="symbol">:shebang</span><span class="punct">]</span> <span class="punct">==</span> <span class="constant">DEFAULT_SHEBANG</span> <span class="punct">?</span> <span class="constant">nil</span> <span class="punct">:</span> <span class="ident">options</span><span class="punct">[</span><span class="symbol">:shebang</span><span class="punct">]</span> <span class="punct">}</span>
     <span class="ident">windows</span>            <span class="punct">=</span> <span class="punct">(</span><span class="constant">RUBY_PLATFORM</span> <span class="punct">=~</span> <span class="punct">/</span><span class="regex">dos|win32|cygwin</span><span class="punct">/</span><span class="ident">i</span><span class="punct">)</span> <span class="punct">||</span> <span class="punct">(</span><span class="constant">RUBY_PLATFORM</span> <span class="punct">=~</span> <span class="punct">/</span><span class="regex">(:?mswin|mingw)</span><span class="punct">/)</span>
-    
+
     <span class="ident">record</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">m</span><span class="punct">|</span>
       <span class="comment"># Root directory and all subdirectories.</span>
       <span class="ident">m</span><span class="punct">.</span><span class="ident">directory</span> <span class="punct">'</span><span class="string"></span><span class="punct">'</span>
       <span class="constant">BASEDIRS</span><span class="punct">.</span><span class="ident">each</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">path</span><span class="punct">|</span> <span class="ident">m</span><span class="punct">.</span><span class="ident">directory</span> <span class="ident">path</span> <span class="punct">}</span>
-      
+
       <span class="comment"># Root</span>
       <span class="ident">m</span><span class="punct">.</span><span class="ident">template_copy_each</span> <span class="punct">%w(</span><span class="string"> Rakefile </span><span class="punct">)</span>
       <span class="ident">m</span><span class="punct">.</span><span class="ident">file_copy_each</span>     <span class="punct">%w(</span><span class="string"> README.txt </span><span class="punct">)</span>
@@ -198,10 +198,10 @@ as this is how the generator is discovered (via <code>RubiGen::Base.use_applicat
       <span class="comment"># Scripts</span>
       <span class="punct">%w(</span><span class="string"> generate </span><span class="punct">).</span><span class="ident">each</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">file</span><span class="punct">|</span>
         <span class="ident">m</span><span class="punct">.</span><span class="ident">template</span> <span class="punct">&quot;</span><span class="string">script/<span class="expr">#{file}</span></span><span class="punct">&quot;,</span>        <span class="punct">&quot;</span><span class="string">script/<span class="expr">#{file}</span></span><span class="punct">&quot;,</span> <span class="ident">script_options</span>
-        <span class="ident">m</span><span class="punct">.</span><span class="ident">template</span> <span class="punct">&quot;</span><span class="string">script/win_script.cmd</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string">script/<span class="expr">#{file}</span>.cmd</span><span class="punct">&quot;,</span> 
+        <span class="ident">m</span><span class="punct">.</span><span class="ident">template</span> <span class="punct">&quot;</span><span class="string">script/win_script.cmd</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string">script/<span class="expr">#{file}</span>.cmd</span><span class="punct">&quot;,</span>
           <span class="symbol">:assigns</span> <span class="punct">=&gt;</span> <span class="punct">{</span> <span class="symbol">:filename</span> <span class="punct">=&gt;</span> <span class="ident">file</span> <span class="punct">}</span> <span class="keyword">if</span> <span class="ident">windows</span>
       <span class="keyword">end</span>
-   
+
     <span class="keyword">end</span>
   <span class="keyword">end</span>
 

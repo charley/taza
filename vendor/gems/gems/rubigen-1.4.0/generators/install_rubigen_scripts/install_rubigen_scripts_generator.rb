@@ -1,11 +1,11 @@
 class InstallRubigenScriptsGenerator < RubiGen::Base
   DEFAULT_SHEBANG = File.join(Config::CONFIG['bindir'],
                               Config::CONFIG['ruby_install_name'])
-  
+
   default_options :shebang => DEFAULT_SHEBANG
-  
+
   attr_reader :path, :scopes
-  
+
   def initialize(runtime_args, runtime_options = {})
     super
     usage if args.length < 2 # requires path and at least one scope
@@ -26,16 +26,16 @@ class InstallRubigenScriptsGenerator < RubiGen::Base
 
       %w( generate destroy ).each do |file|
         m.template "script/#{file}",        "script/#{file}", script_options
-        m.template "script/win_script.cmd", "script/#{file}.cmd", 
+        m.template "script/win_script.cmd", "script/#{file}.cmd",
           :assigns => { :filename => file } if windows
       end
     end
   end
-  
+
   def scopes_str
     scopes.inspect
   end
-  
+
   protected
     def banner
       <<-EOS
@@ -55,14 +55,14 @@ EOS
              "Default: #{DEFAULT_SHEBANG}") { |v| options[:shebang] = v }
       opts.on("-v", "--version", "Show the #{File.basename($0)} version number and quit.")
     end
-    
+
     def extract_options
       # for each option, extract it into a local variable (and create an "attr_reader :author" at the top)
       # Templates can access these value via the attr_reader-generated methods, but not the
       # raw instance variable value.
       # @author = options[:author]
     end
-    
+
     def default_scopes
       if (scopes.map { |s| s.to_s } & %w[test_unit rspec test_spec mini_spec javascript_test]).blank?
         scopes << :test_unit

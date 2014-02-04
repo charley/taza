@@ -6,11 +6,11 @@ class TestGenerateBuiltinTestUnit < Test::Unit::TestCase
   def setup
     bare_teardown
   end
-  
+
   def teardown
     bare_teardown
   end
-  
+
   def test_with_no_options
     run_generator('test_unit', %w[AccountReceiver], sources)
     assert_generated_file("test/test_account_receiver.rb")
@@ -26,7 +26,7 @@ class TestGenerateBuiltinTestUnit < Test::Unit::TestCase
     [RubiGen::PathSource.new(:testing, File.join(File.dirname(__FILE__),"..", generator_path))
     ]
   end
-  
+
   def generator_path
     "test_unit_generators"
   end

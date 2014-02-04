@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../scripts'
 module RubiGen::Scripts
   class Destroy < Base
     mandatory_options :command => :destroy
-    
+
     protected
     def usage_message
       usage = "\nInstalled Generators\n"
@@ -15,10 +15,10 @@ module RubiGen::Scripts
 
       usage << <<-end_blurb
 
-This script will destroy all files created by the corresponding 
+This script will destroy all files created by the corresponding
 script/generate command. For instance, script/destroy test_unit create_post
 will delete the appropriate test_create_post.rb file in /test.
-      
+
 For instructions on finding new generators, run script/generate
 end_blurb
       return usage

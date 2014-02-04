@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'safariwatir'
 
-# TODO 
+# TODO
 #
 # Looking up textareas, or any input element for that matter, by index
 #
@@ -17,7 +17,7 @@ require 'safariwatir'
 
 # SAFARI ISSUES
 # Labels are not clickable
-# No known way to programatically click a <button> 
+# No known way to programatically click a <button>
 # Links with href="javascript:foo()"
 
 safari = Watir::Safari.new
@@ -31,7 +31,7 @@ def safari.google_to_prag
   link(:text, "All Categories").click
   link(:text, "All Titles").click
   link(:url, /retrospectives/).click
-  puts "FAILURE prag" unless contains_text("Dave Hoover")  
+  puts "FAILURE prag" unless contains_text("Dave Hoover")
 end
 
 def safari.ala
@@ -68,14 +68,14 @@ def safari.reddit
   text_field(:name, "user").set("foo")
   password(:name, "passwd").set("bar")
   form(:index, 2).submit
-  puts "FAILURE reddit" unless contains_text("foo") and contains_text("logout")  
+  puts "FAILURE reddit" unless contains_text("foo") and contains_text("logout")
 end
 
 def safari.colbert
   goto("http://www.colbertnation.com/cn/contact.php")
   text_field(:name, "formmessage").set("Beware the Bear")
   button(:value, "Send Email").click
-  puts "FAILURE colbert" unless text_field(:name, "formmessage").verify_contains(/Enter message/)  
+  puts "FAILURE colbert" unless text_field(:name, "formmessage").verify_contains(/Enter message/)
 end
 
 def safari.redsquirrel
@@ -99,26 +99,26 @@ def safari.weinberg
   puts "FAILURE weinberg menu" unless frame("menu").contains_text("Jerry Weinberg's Site")
   frame("menu").link(:text, "Books").click
   frame("menu").link(:text, /psychology/i).click
-  puts "FAILURE weinberg content" unless frame("content").contains_text("Silver Anniversary")  
+  puts "FAILURE weinberg content" unless frame("content").contains_text("Silver Anniversary")
 end
 
 def safari.tables
   # Site Redesign, need to update test
   # goto("http://basecamphq.com/")
   # puts "FAILURE basecamp content" unless table(:index, 1)[1][2].text =~ /What is Basecamp\?/
-  
+
   goto("http://www.jimthatcher.com/webcourse9.htm")
   puts "FAILURE thatcher" unless cell(:id, "c5").text == "subtotals"
-  
+
   goto("http://amazon.com/")
   if contains_text("If you're not")
     link(:text, "click here").click
   end
-    
+
   puts "FAILURE amazon tr" unless row(:id, "twotabtop")[2].text =~ /Your\s+Amazon\.com/
   row(:id, "twotabtop")[2].link(:index, 1).click
   puts "FAILURE amazon link" unless contains_text("personalized recommendations")
-    
+
   goto("http://www.dreamweaverresources.com/tutorials/tableborder.htm")
   puts "FAILURE dreamweaver" unless table(:id, "titletable")[1][1].text =~ /CSS/
 end

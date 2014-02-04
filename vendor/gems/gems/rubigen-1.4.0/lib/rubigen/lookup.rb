@@ -95,13 +95,13 @@ module RubiGen
         write_inheritable_attribute(:sources, [])
         invalidate_cache!
       end
-      
+
       # Use application generators (app, ?).
       def use_application_sources!(*filters)
         reset_sources
         write_inheritable_attribute(:sources, application_sources(filters))
       end
-      
+
       def application_sources(filters = [])
         filters.unshift 'app'
         app_sources = []
@@ -109,7 +109,7 @@ module RubiGen
         app_sources << filtered_sources(filters)
         app_sources.flatten
       end
-        
+
       # Use component generators (test_unit, etc).
       # 1.  Current application.  If APP_ROOT is defined we know we're
       #     generating in the context of this application, so search
@@ -119,7 +119,7 @@ module RubiGen
       # 4.  Builtins.  None currently.
       #
       # Search can be filtered by passing one or more prefixes.
-      # e.g. use_component_sources!(:rubygems) means it will also search in the following 
+      # e.g. use_component_sources!(:rubygems) means it will also search in the following
       # folders:
       # 5.  User home directory.  Search ~/.rubigen/rubygems_generators.
       # 6.  RubyGems.   Search for gems containing /rubygems_generators folder.
@@ -134,7 +134,7 @@ module RubiGen
         new_sources << filtered_sources(filters)
         write_inheritable_attribute(:sources, new_sources.flatten)
       end
-      
+
       def filtered_sources(filters)
         new_sources = []
         new_sources << PathFilteredSource.new(:user, "#{Dir.user_home}/.rubigen/", *filters)
@@ -150,7 +150,7 @@ module RubiGen
         @found ||= {}
         generator_name = generator_name.to_s.downcase
         @found[generator_name] ||= cache.find { |spec| spec.name == generator_name }
-        unless @found[generator_name] 
+        unless @found[generator_name]
           chars = generator_name.scan(/./).map{|c|"#{c}.*?"}
           rx = /^#{chars}$/
           gns = cache.select {|spec| spec.name =~ rx }
@@ -228,19 +228,19 @@ module RubiGen
         end
       end
     end
-    
+
     def ==(source)
       self.class == source.class && path == source.path
     end
   end
-  
+
   class PathFilteredSource < PathSource
     attr_reader :filters
-    
+
     def initialize(label, path, *filters)
       super label, File.join(path, "#{filter_str(filters)}generators")
     end
-    
+
     def filter_str(filters)
       @filters = filters.first.is_a?(Array) ? filters.first : filters
       return "" if @filters.blank?
@@ -263,12 +263,12 @@ module RubiGen
   # GemPathSource looks for generators within any RubyGem's /{filter_}generators/**/<generator_name>_generator.rb file.
   class GemPathSource < AbstractGemSource
     attr_accessor :filters
-    
+
     def initialize(*filters)
       super()
       @filters = filters
     end
-    
+
     # Yield each generator within rails_generator subdirectories.
     def each
       generator_full_paths.each do |generator|
@@ -295,7 +295,7 @@ module RubiGen
             mem
           end.reverse
       end
-      
+
       def filter_str
         @filters = filters.first.is_a?(Array) ? filters.first : filters
         return "" if filters.blank?

@@ -5,7 +5,7 @@ class RubyAppGenerator < RubiGen::Base
                               Config::CONFIG['ruby_install_name'])
 
   default_options   :shebang => DEFAULT_SHEBANG
-  
+
   attr_accessor :app_name
   attr_accessor :module_name
 
@@ -34,14 +34,14 @@ class RubyAppGenerator < RubiGen::Base
 
       # Default module for app
       m.template "lib/module.rb",         "lib/#{app_name}.rb"
-      
+
       # Test helper
       m.template_copy_each %w(test_helper.rb.erb),    "test"
 
       %w(debug).each { |file|
         m.file "configs/empty_log", "log/#{file}.log", :chmod => 0666
       }
-      
+
       m.dependency "install_rubigen_scripts", [destination_root, "rubygems"], :shebang => options[:shebang]
     end
   end
@@ -58,7 +58,7 @@ class RubyAppGenerator < RubiGen::Base
              "Path to the Ruby binary of your choice (otherwise scripts use env, dispatchers current path).",
              "Default: #{DEFAULT_SHEBANG}") { |v| options[:shebang] = v }
     end
-    
+
 
   # Installation skeleton.  Intermediate directories are automatically
   # created so don't sweat their absence here.

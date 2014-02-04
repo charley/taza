@@ -21,7 +21,7 @@ describe Taza::Entity do
     entity = Taza::Entity.new({:apple => 'pie' },nil)
     entity.to_hash[:apple].should eql('pie')
   end
-  
+
   it "should be able to do string-to-symbol conversion for hash keys using to_hash" do
     entity = Taza::Entity.new({'apple' => 'pie' },nil)
     entity.to_hash[:apple].should eql('pie')

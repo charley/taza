@@ -20,7 +20,7 @@ describe "Page Generation" do
   after :each do
     bare_teardown
   end
-  
+
   it "should give you usage if you do not give two arguments" do
     PageGenerator.any_instance.expects(:usage)
     lambda { run_generator('page', [@page_name], generator_sources) }.should raise_error

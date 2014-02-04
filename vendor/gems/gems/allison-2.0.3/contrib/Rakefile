@@ -26,7 +26,7 @@ require 'doc/rdoc_patch'  #  ERGO  move this inside task!
 #:stopdoc:
 =begin
  ERGO wish list for RDoc:
- 
+
  * the ability to alias a link to another part of the project. Example:
 
       assert_xpath[AssertXPath#assert_xpath]
@@ -64,9 +64,9 @@ require 'doc/rdoc_patch'  #  ERGO  move this inside task!
 
  * complain for broken links
 
-Finally, this might be pilot error, but certain class names I simply cannot 
+Finally, this might be pilot error, but certain class names I simply cannot
 get out of the class list...
- 
+
 =end
 
 #:startdoc:
@@ -87,10 +87,10 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   #  ERGO  --style with some groovy yar-wiki- (and flea-) inspired theme
 #  ERGO  does # :yields: element  mean returns?
  #  TODO  use call-seq to fix *args
- 
+
   rdoc.rdoc_files.include('README')
 
-  rdoc.rdoc_files.include('test/*_test.rb') 
+  rdoc.rdoc_files.include('test/*_test.rb')
       #  ERGO  clean this up and link in to them
       #        and get the method names out of the general index?
 
@@ -103,7 +103,7 @@ task :publish => :style do
 end
 
 desc 'upgrade and inspect the rdoc folder'
-task :style => :rdoc do 
+task :style => :rdoc do
   FileUtils.copy 'doc/yar-style.css', 'rdoc/'
   FileUtils.copy 'doc/sky.png',       'rdoc/'
   system 'grep ERGO rdoc -r'
@@ -114,20 +114,20 @@ task :agiledox do
   tests = FileList['test/**/*_test.rb']
   tests.each do |file|
     m = %r".*/([^/].*)_test.rb".match(file)
-    puts m[1]+" should:\n" 
+    puts m[1]+" should:\n"
     test_definitions = File::readlines(file).select {|line| line =~ /.*def test.*/}
     test_definitions.each do |definition|
       m = %r"test_(should_)?(.*)".match(definition)
       puts " - "+m[2].gsub(/_/," ")
     end
-    puts "\n" 
+    puts "\n"
   end
 end
 
 def findTodos(searchFor)
   folders = %w(lib tasks test wiki)
   files = FileList[ *folders.map{|q| q+'/**/*'} ]
-  
+
   files.collect!{|f| f if File.file?(f) }
   files.compact!
 

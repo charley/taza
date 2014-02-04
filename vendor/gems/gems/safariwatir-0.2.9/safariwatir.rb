@@ -9,7 +9,7 @@ module Watir
     def html
       @scripter.document_html
     end
-    
+
     def text
       @scripter.document_text
     end
@@ -28,11 +28,11 @@ module Watir
     def set_fast_speed
       @scripter.typing_lag = 0
     end
-    
+
     def set_slow_speed
       @scripter.typing_lag = DEFAULT_TYPING_LAG
     end
-    
+
     def speed=(how_fast)
       case how_fast
       when :fast : set_fast_speed
@@ -47,12 +47,12 @@ module Watir
         @scripter.highlight(self) do
           click_element
         end
-      end    
+      end
     end
 
     class AlertWindow
       def_init :scripter
-      
+
       def click
         @scripter.click_alert_ok
       end
@@ -61,9 +61,9 @@ module Watir
     class Frame
       include Container
       include PageContainer
-      
+
       attr_reader :name
-      
+
       def initialize(scripter, name)
         @name = name
         @scripter = scripter.for_frame(self)
@@ -88,7 +88,7 @@ module Watir
         @scripter.element_exists?(self)
       end
       alias :exist? :exists?
-      
+
       def name
         self.class.name.split("::").last
       end
@@ -98,7 +98,7 @@ module Watir
         if scripter_suffix.nil?
           raise "SafariWatir does not currently support finding by #{how}"
         end
-        @scripter.send("operate_#{scripter_suffix}", self, &block)        
+        @scripter.send("operate_#{scripter_suffix}", self, &block)
       end
 
       OPERATIONS = {
@@ -119,13 +119,13 @@ module Watir
       def submit
         @scripter.submit_form(self)
       end
-      
+
       def tag; "FORM"; end
     end
-    
+
     class InputElement < HtmlElement
       include Clickable
-      
+
       def speak
         @scripter.speak_value_of(self)
       end
@@ -135,7 +135,7 @@ module Watir
       # Hook for derivitives
       def by_value; end
     end
-    
+
     class ContentElement < HtmlElement
       include Clickable
       include Container
@@ -150,25 +150,25 @@ module Watir
 
       def speak
         @scripter.speak_text_of(self)
-      end      
+      end
     end
-    
+
     class Image < HtmlElement
       def tag; "IMG"; end
-      
+
       protected
-      
+
       def operate_by_src(&block)
         @scripter.operate_by(self, 'src', &block)
       end
     end
-    
+
     class Button < InputElement
     end
-        
+
     class Checkbox < InputElement
       def_init :scripter, :how, :what, :value
-      
+
       def by_value
         @value
       end
@@ -177,7 +177,7 @@ module Watir
       def checked?
         @scripter.checkbox_is_checked?(self)
       end
-      
+
       def set(check_it = true)
         return if check_it && checked?
         return if !check_it && !checked?
@@ -191,9 +191,9 @@ module Watir
 
     class Label < ContentElement
       def tag; "LABEL"; end
-      
+
       protected
-      
+
       def operate_by_text(&block)
         @scripter.operate_by(self, 'innerText', &block)
       end
@@ -216,15 +216,15 @@ module Watir
       def select(label)
         option(:text, label).select
       end
-      
+
       def select_value(value)
         option(:value, value).select
       end
-      
+
       def option(how, what)
         Option.new(@scripter, self, how, what)
       end
-      
+
       def selected_values
         values = []
         index = 1
@@ -240,23 +240,23 @@ module Watir
       def selected_value
         selected_values.first
       end
-      
+
       def speak
         @scripter.speak_options_for(self)
       end
-      
+
       def tag; "SELECT"; end
     end
 
     class Option < InputElement
       def_init :scripter, :select_list, :how, :what
-      
+
       def select
         @scripter.highlight(self) do
           select_option
         end
       end
-      
+
       def operate(&block)
         @select_list.operate(&block)
       end
@@ -265,11 +265,11 @@ module Watir
         @scripter.option_exists?(self)
       end
       alias :exist? :exists?
-      
+
       def selected?
         @scripter.option_selected?(self)
       end
-      
+
       def text
         @scripter.get_text_for(self)
       end
@@ -284,26 +284,26 @@ module Watir
     class Table
       def_init :scripter, :how, :what
       attr_reader :how, :what
-      
+
       def each
         # TODO
       end
-      
+
       def [](index)
         TableRow.new(@scripter, :index, index, self)
       end
-      
+
       def row_count
         # TODO
       end
-      
+
       def column_count
         # TODO
       end
 
       def tag; "TABLE"; end
     end
-    
+
     class TableRow
       def initialize(scripter, how, what, table = nil)
         @scripter = scripter
@@ -313,11 +313,11 @@ module Watir
       end
 
       attr_reader :table, :how, :what
-            
+
       def each
         # TODO
       end
-      
+
       def [](index)
         TableCell.new(@scripter, :index, index, self)
       end
@@ -328,7 +328,7 @@ module Watir
 
       def tag; "TR"; end
     end
-    
+
     class TableCell < ContentElement
       def initialize(scripter, how, what, row = nil)
         @scripter = scripter.for_table(self)
@@ -338,7 +338,7 @@ module Watir
         @what = what
         @row = row
       end
-      
+
       attr_reader :how, :what, :row
 
       def operate(&block)
@@ -360,11 +360,11 @@ module Watir
         end
         @scripter.blur(self)
       end
-      
+
       def getContents
         @scripter.get_value_for(self)
       end
-      
+
       def verify_contains(expected)
         actual = getContents
         case expected
@@ -381,7 +381,7 @@ module Watir
 
 
     # Elements
-    
+
     def button(how, what)
       Button.new(scripter, how, what)
     end
@@ -405,7 +405,7 @@ module Watir
     def frame(name)
       Frame.new(scripter, name)
     end
-    
+
     def image(how, what)
       Image.new(scripter, how, what)
     end
@@ -413,7 +413,7 @@ module Watir
     def label(how, what)
       Label.new(scripter, how, what)
     end
-    
+
     def link(how, what)
       Link.new(scripter, how, what)
     end
@@ -433,7 +433,7 @@ module Watir
     def select_list(how, what)
       SelectList.new(scripter, how, what)
     end
-    
+
     def span(how, what)
       Span.new(scripter, how, what)
     end
@@ -441,11 +441,11 @@ module Watir
     def table(how, what)
       Table.new(scripter, how, what)
     end
-    
+
     def text_field(how, what)
       TextField.new(scripter, how, what)
     end
-    
+
     def contains_text(what)
       case what
       when Regexp:
@@ -467,17 +467,17 @@ module Watir
       safari.goto(url) if url
       safari
     end
-    
+
     def initialize
       @scripter = AppleScripter.new
       @scripter.ensure_window_ready
       set_slow_speed
     end
-    
+
     def close
       scripter.close
     end
-    
+
     def quit
       scripter.quit
     end
@@ -485,7 +485,7 @@ module Watir
     def alert
       AlertWindow.new(scripter)
     end
-    
+
     def goto(url)
       scripter.navigate_to(url)
     end

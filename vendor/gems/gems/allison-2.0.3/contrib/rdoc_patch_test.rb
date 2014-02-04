@@ -34,7 +34,7 @@ class RDocMonkeyPatchTest < Test::Unit::TestCase
     File.open(args[1], 'w'){|f|  f.write file_2_contents  }
     rdoc.document(args)
   end
- 
+
   def test_rdoc_raw_ruby
     publish("
              class Foo
@@ -42,7 +42,7 @@ class RDocMonkeyPatchTest < Test::Unit::TestCase
                def daddys_got_them_debellum_blues
                end
              end", '')
-          
+
     assert_xml File.read('scratch/classes/Foo.html')
     assert_tag_id :div, 'method-M000003' do  #  CONSIDER: why 003 ?
       assert_xpath 'div[ "method-description" = @class ]' do |div|
@@ -50,7 +50,7 @@ class RDocMonkeyPatchTest < Test::Unit::TestCase
       end
     end
   end
-  
+
   def test_rdoc_crosspatch
     publish("
              class Foo
@@ -75,9 +75,9 @@ class RDocMonkeyPatchTest < Test::Unit::TestCase
         assert_match 'exemplary', div.inner_text
       end
     end
-    
+
     assert_xml File.read('scratch/classes/Bar.html')
-    
+
     assert_tag_id :div, 'method-M000002' do
       assert_xpath 'div[ "method-description" = @class ]' do |div|
         assert_match 'i_think_were_alone_now', div.inner_text
@@ -85,7 +85,7 @@ class RDocMonkeyPatchTest < Test::Unit::TestCase
       end
     end
   end
-  
+
   def teardown
     FileUtils.rm_rf('scratch')   rescue nil
     File.unlink('scratch_1.rb')  rescue nil

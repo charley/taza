@@ -30,7 +30,7 @@ It is good to use rcov with Rake because it `cd's appropriate directory.
   (define-key rcov-xref-mode-map "\C-m" 'rcov-xref-visit-source)
   (set (make-local-variable 'automatic-hscrolling) nil)
   )
-  
+
 (defvar rcov-xref-tag-regexp "\\[\\[\\(.*?\\)\\]\\]")
 
 (defun rcov-xref-next-tag (n)

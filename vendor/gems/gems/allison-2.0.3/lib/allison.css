@@ -1,5 +1,5 @@
 
-/* 
+/*
  Allison 2 template
  Copyright 2007, 2008 Cloudburst, LLC. Licensed under the AFL 3. See the included LICENSE file.
 */
@@ -64,7 +64,7 @@ h1 {
   margin: @buffer
   margin-right: 0
   padding-top: @buffer * 2
-} 
+}
 
 /* center everything */
 
@@ -92,7 +92,7 @@ h1 {
   padding: 0
   height: 1px
   overflow: hidden /* again, ie problem */
-} 
+}
 
 def curve(div_id, curve_array, width); s = ""; curve_array.length.times {|n| s += "\n##{div_id}#{curve_array.length - 1 - n}{border-left: #{curve_array[n]}px solid #{@background}; border-right: #{curve_array[n]}px solid #{@background}; width: #{width - curve_array[n]*2}px; _width: #{width - 12}px; }"}; s; end
 @curves = [1, 1, 2, 3, 4, 6]
@@ -102,7 +102,7 @@ curve("preheader_curve_", @curves, @width)
 #header h1 {
   color: @background
   font-size: 30px
-  margin: 4px 0 0 0 
+  margin: 4px 0 0 0
  } #header p {
   margin: 0
   padding: 0
@@ -116,7 +116,7 @@ curve("preheader_curve_", @curves, @width)
 }
 
 /* basic layout and navigation bars */
-  
+
 #left {
   background-color: @dark
   width: @left_width = 220
@@ -125,7 +125,7 @@ curve("preheader_curve_", @curves, @width)
   margin-bottom: @buffer * 4
 } #left a {
   line-height: 14px
-} 
+}
 
 /* navigation bar colors and text styles */
 
@@ -138,13 +138,13 @@ curve("preheader_curve_", @curves, @width)
   overflow: hidden
 } .navigation h3 {
   font-weight: bold
-  margin-bottom: 5px  
+  margin-bottom: 5px
 } .navigation span, .navigation a {
   margin-left: @buffer
 } #includes .navigation span, #includes .navigation a {
   margin-left: 0
 } .darker {
-  background-color: @very_light 
+  background-color: @very_light
 } #spacer {
   background-color: @background
   height: @buffer * 3
@@ -190,7 +190,7 @@ curve("preheader_curve_", @curves, @width)
 /* for that dumb redirect index page I can't avoid */
 
 #redirect {
-  text-align: center  
+  text-align: center
 } #redirect a {
   color: @dark
 }
@@ -213,10 +213,10 @@ table {
   font-size: @monospace_size = 12
 } td.highlight {
   color: @medium
-}  
+}
 
 /* method_block details */
-  
+
 div.method_block {
   border-bottom: 1px solid @very_light
   margin-left: 20px
@@ -226,20 +226,20 @@ div.method_block {
   color: @dark
   margin-left: 0
   padding: 0
-} #content div.method_block h1, #content #description h1 { 
+} #content div.method_block h1, #content #description h1 {
   margin-left: @buffer
   color: @light
 } div.method_block a.small { /* where is this used? */
   font-size: 3px
   line-height: 3px
-} 
+}
 
 /* index includes on the navigation bar */
 
 div.index a {
   font-size: @font_size
 } #method {
-  display: none 
+  display: none
 } #file, #class {
   display: block
 } div.list_header {
@@ -266,7 +266,7 @@ div.index a {
 
 ol, ul {
   margin-left: @buffer
-} 
+}
 
 p.source_link a {
   text-align: right
@@ -293,7 +293,7 @@ p.source_link a {
   margin-left: 0
 } p.source_link {
   text-align: center
-} 
+}
 
 /* source code highlighting */
 
@@ -311,4 +311,4 @@ pre .ruby-value, pre .ruby-symbol {
   color: @orange = "#cd8802"
 } pre .ruby-keyword {
   color: @purple = "#8d04aa"
-} 
+}

@@ -2,7 +2,7 @@
 " Language:	Ruby
 " Function:	Code coverage information with rcov
 " Maintainer:	Mauricio Fernandez <mfp at acm dot org>
-" Info:		
+" Info:
 " URL:		http://eigenclass.org/hiki.rb?rcov
 " ----------------------------------------------------------------------------
 "
@@ -10,7 +10,7 @@
 " 0.1:	initial version, shipped with rcov 0.6.0
 "
 " Comments:
-" Initial attempt. 
+" Initial attempt.
 " ----------------------------------------------------------------------------
 
 if exists("current_compiler")
@@ -30,7 +30,7 @@ CompilerSet makeprg=rake\ $*\ RCOVOPTS=\"-D\ --no-html\ --no-color\"\ $*
 CompilerSet errorformat=
      \%+W\#\#\#\ %f:%l\,
      \%-C\ \ \ ,
-     \%-C!!\ 
+     \%-C!!\
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
